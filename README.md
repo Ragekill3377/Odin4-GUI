@@ -12,6 +12,10 @@
 - **Reboot Options**: Provides options for rebooting or downloading mode after flashing.
 - **Odin-Like**: Feels just like the normal odin on Windows.
 
+## Screenshot
+
+![Screenshot Preview](Odin4-GUI/preview/odin-4-linux.png)
+
 ## Installation
 
 ### Requirements
