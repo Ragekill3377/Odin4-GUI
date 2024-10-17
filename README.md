@@ -14,7 +14,7 @@
 
 ## Screenshot
 
-![Screenshot Preview](Odin4-GUI/preview/odin-4-linux.png)
+![Screenshot Preview](preview/odin-4-linux.png)
 
 ## Installation
 
