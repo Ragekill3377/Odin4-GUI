@@ -34,12 +34,12 @@ def flash_device():
     ap_file = ap_entry.get()
     cp_file = cp_entry.get()
     csc_file = csc_entry.get()
+    userdata_file = userdata_entry.get()
     erase_nand = nand_var.get()
     reboot_flag = reboot_var.get()
     redownload_flag = redownload_var.get()
 
-    
-    for file in [bl_file, ap_file, cp_file, csc_file]:
+    for file in [bl_file, ap_file, cp_file, csc_file, userdata_file]:
         if file and not isCorruptedn(file):
             messagebox.showerror("Error", f"FILE: {file} seems to be corrupted. Please verify it.")
             return
@@ -50,11 +50,11 @@ def flash_device():
     if ap_file: command.extend(['-a', ap_file])
     if cp_file: command.extend(['-c', cp_file])
     if csc_file: command.extend(['-s', csc_file])
+    if userdata_file: command.extend(['-u', userdata_file])
     if erase_nand: command.append('-e')
     if reboot_flag: command.append('--reboot')
     if redownload_flag: command.append('--redownload')
 
-    
     def update_progress(process):
         for line in process.stdout:
             progress_text.insert(ctk.END, line.decode('utf-8'))
@@ -70,24 +70,20 @@ def flash_device():
 
 # ---- GUI ----
 
-
 ctk.set_appearance_mode("dark")  # "dark", "light", or "system"
 ctk.set_default_color_theme("dark-blue")
-
 
 root = ctk.CTk()
 root.title("Odin-4-Linux")
 root.geometry("900x700")
 
-
 nand_var = ctk.BooleanVar()
 reboot_var = ctk.BooleanVar()
 redownload_var = ctk.BooleanVar()
 
-
 bg_color = "#2E2E2E"
 text_color = "#FFFFFF"
-root.configure(bg=bg_color) 
+root.configure(bg=bg_color)
 
 # Tabs view
 tabview = ctk.CTkTabview(root)
@@ -128,6 +124,15 @@ csc_entry = ctk.CTkEntry(tab_csc, width=350)
 csc_entry.grid(row=0, column=1, padx=10, pady=10)
 csc_button = ctk.CTkButton(tab_csc, text="Browse", command=lambda: select_file(csc_entry), fg_color="black")
 csc_button.grid(row=0, column=2, padx=10, pady=10)
+
+# USERDATA (HOME_CSC_OLD / UMS) -> all mean the same
+tab_userdata = tabview.add("USERDATA")
+userdata_label = ctk.CTkLabel(tab_userdata, text="USERDATA (UMS):", fg_color=bg_color)
+userdata_label.grid(row=0, column=0, padx=10, pady=10)
+userdata_entry = ctk.CTkEntry(tab_userdata, width=350)
+userdata_entry.grid(row=0, column=1, padx=10, pady=10)
+userdata_button = ctk.CTkButton(tab_userdata, text="Browse", command=lambda: select_file(userdata_entry), fg_color="black")
+userdata_button.grid(row=0, column=2, padx=10, pady=10)
 
 # Checkboxes
 tab_options = tabview.add("Options")
