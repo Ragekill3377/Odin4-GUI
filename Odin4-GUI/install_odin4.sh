@@ -29,7 +29,7 @@ mv ./$ODIN_BINARY /usr/local/bin/
 
 
 if [[ $? -ne 0 ]]; then
-    echo "[INSTALLER]: Filed. Couldn't move odin4 to /usr/local/bin."
+    echo "[INSTALLER]: Failed. Couldn't move odin4 to /usr/local/bin."
     exit 1
 fi
 
